@@ -1,8 +1,13 @@
 import React from 'react';
 import './Footer.css';
 
-function Footer() {
-	return <footer>Nbuy Oglen ReactJS</footer>;
+function Footer({ children }) {
+	return (
+		<footer>
+			Nbuy Oglen ReactJS
+			{children}
+		</footer>
+	);
 }
 
 export default Footer;

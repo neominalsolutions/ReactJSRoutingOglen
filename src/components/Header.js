@@ -1,21 +1,35 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 // bgColor component içerine dışarıdan gönderilen değerlere props ismini veririz.
 // props html elementin attribute karşılık gelir. <a href="wwww.a.com"></a>
 
 // { bg, variant } props denk gelir. props da özel bir keyword. componente gönderilen geçirilen değerlere karşılık gelir.
 
-function Header({ bg, variant }) {
+function Header({ bg, variant, menus, homePageUrl }) {
 	return (
 		<>
 			<Navbar bg={bg} variant={variant}>
 				<Container>
-					<Navbar.Brand href="#home">Nbuy Oglen</Navbar.Brand>
+					<Navbar.Brand>
+						<Link className="nav-item nav-link" to={homePageUrl}>
+							{' '}
+							Nbuy Oglen
+						</Link>
+					</Navbar.Brand>
 					<Nav className="me-auto">
-						<Nav.Link href="#home">Anasayfa</Nav.Link>
-						<Nav.Link href="#features">Hakkımızda</Nav.Link>
-						<Nav.Link href="#pricing">Ürünlerimiz</Nav.Link>
+						{menus.map((item) => {
+							return (
+								<Link
+									key={item.url}
+									className="nav-item nav-link"
+									to={item.url}
+								>
+									{item?.title}{' '}
+								</Link>
+							);
+						})}
 					</Nav>
 				</Container>
 			</Navbar>
@@ -30,4 +44,9 @@ export default Header;
 Header.defaultProps = {
 	bg: 'light',
 	variant: 'light',
+	menus: [
+		{ title: 'Anasayfa', url: '/home' },
+		{ title: 'Hakkımızda', url: 'about' },
+	],
+	homePageUrl: '/home',
 };
