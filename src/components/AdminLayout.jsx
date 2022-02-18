@@ -12,8 +12,9 @@ function AdminLayout({ children }) {
 		},
 		{
 			title: 'Yönetim Paneli',
-			url: 'dashboard',
+			url: '',
 		},
+		{ title: 'User Detail', url: 'users/1' },
 	];
 
 	return (

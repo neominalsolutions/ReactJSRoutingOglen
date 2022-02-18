@@ -45,7 +45,7 @@ Header.defaultProps = {
 	bg: 'light',
 	variant: 'light',
 	menus: [
-		{ title: 'Anasayfa', url: '/home' },
+		{ title: 'Anasayfa', url: 'home' },
 		{ title: 'Hakkımızda', url: 'about' },
 	],
 	homePageUrl: '/home',
