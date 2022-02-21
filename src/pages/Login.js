@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { LoginService } from '../services/login.service';
+import { AuthService } from '../services/auth.service';
 
 function Login() {
 	const navigate = useNavigate();
+	// useNavigate ile js tarafında bir sayfadan başka bir sayfaya yönlenebiliriz.
 
 	const login = async () => {
 		const param = {
@@ -11,7 +12,7 @@ function Login() {
 			password: '1234',
 		};
 
-		await LoginService.login(param, (response, error) => {
+		await AuthService.login(param, (response, error) => {
 			console.log('error', error);
 
 			if (error) {

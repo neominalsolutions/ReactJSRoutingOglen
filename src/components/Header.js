@@ -1,6 +1,8 @@
 import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AuthService } from '../services/auth.service';
 
 // bgColor component içerine dışarıdan gönderilen değerlere props ismini veririz.
 // props html elementin attribute karşılık gelir. <a href="wwww.a.com"></a>
@@ -8,9 +10,15 @@ import { Link } from 'react-router-dom';
 // { bg, variant } props denk gelir. props da özel bir keyword. componente gönderilen geçirilen değerlere karşılık gelir.
 
 function Header({ bg, variant, menus, homePageUrl }) {
-	const userName = localStorage.getItem('username');
+	const userName = AuthService.UserName();
+	const isAuthenticated = AuthService.isAuthenticated();
+	const navigate = useNavigate();
 
-	console.log('userName', userName);
+	const logout = async () => {
+		AuthService.logout((response) => {
+			navigate(response.url);
+		});
+	};
 
 	return (
 		<>
@@ -35,7 +43,23 @@ function Header({ bg, variant, menus, homePageUrl }) {
 							);
 						})}
 					</Nav>
-					<Nav className="ms-auto">{userName}</Nav>
+					{isAuthenticated && (
+						<div className="ms-auto">
+							<Nav style={{ color: 'indianred', justifyContent: 'center' }}>
+								{userName}
+							</Nav>
+							<Nav style={{ color: 'indianred' }}>
+								<Button variant="link" onClick={logout}>
+									Oturumu Kapat
+								</Button>
+							</Nav>
+						</div>
+					)}
+					{!isAuthenticated && (
+						<Nav style={{ color: 'indianred' }} className="ms-auto">
+							<Link to="/login">Oturum Aç</Link>
+						</Nav>
+					)}
 				</Container>
 			</Navbar>
 		</>

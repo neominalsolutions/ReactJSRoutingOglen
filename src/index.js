@@ -12,6 +12,9 @@ import Users from './pages/Users';
 import UserDetail from './pages/UserDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import UnAuthorized from './pages/UnAuthorized';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -19,15 +22,37 @@ ReactDOM.render(
 			<Routes>
 				<Route path="login" element={<Login />} />
 				<Route path="register" element={<Register />} />
-				<Route path="admin" element={<Admin />}>
+				<Route path="unauthorized" element={<UnAuthorized />} />
+				<Route
+					path="admin"
+					element={
+						<AuthGuard>
+							<Admin />
+						</AuthGuard>
+					}
+				>
 					<Route path="" element={<Dashboard />} />
-					<Route path="users" element={<Users />} />
+					<Route
+						path="users"
+						element={
+							<RoleGuard roles={['admin']}>
+								<Users />
+							</RoleGuard>
+						}
+					/>
 					<Route path="users/:id" element={<UserDetail />} />
 				</Route>
 				<Route path="" element={<App />}>
 					<Route path="" element={<Home />} />
 					<Route path="home" element={<Home />} />
-					<Route path="about" element={<About />} />
+					<Route
+						path="about"
+						element={
+							<AuthGuard>
+								<About />
+							</AuthGuard>
+						}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>
