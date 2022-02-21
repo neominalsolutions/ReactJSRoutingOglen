@@ -21,10 +21,12 @@ LoginService.login = async ({ username, password }, callback) => {
 		console.log('response324234', response);
 
 		if (response.status == 200) {
-			localStorage.setItem('access_token', response.data['accessToken']);
-			localStorage.setItem('refresh_token', response.data['refreshToken']);
+			const tokenResponse = {
+				accessToken: response.data.accessToken,
+				refreshToken: response.data.refreshToken,
+			};
 
-			TokenService.decode(response.data['accessToken']);
+			TokenService.setToken(tokenResponse);
 
 			callback({ url: '/' }, null);
 		} else if (response.status == 401) {

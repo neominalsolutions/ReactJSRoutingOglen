@@ -34,8 +34,8 @@ function Header({ bg, variant, menus, homePageUrl }) {
 								</Link>
 							);
 						})}
-						<Nav.Item>{userName}</Nav.Item>
 					</Nav>
+					<Nav className="ms-auto">{userName}</Nav>
 				</Container>
 			</Navbar>
 		</>

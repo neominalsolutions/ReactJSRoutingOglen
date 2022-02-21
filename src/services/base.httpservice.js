@@ -5,6 +5,13 @@ export const BaseHttpService = {};
 BaseHttpService.get = async (url) => {
 	try {
 		let _headers = { ContentType: 'application/json' };
+		// headerdan giden değer.
+
+		const token = localStorage.getItem('access_token');
+
+		if (token != undefined) {
+			_headers = { ..._headers, Authorization: `Bearer ${token}` };
+		}
 
 		let response = await axios.get(url, _headers);
 		return response;
