@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom';
 // { bg, variant } props denk gelir. props da özel bir keyword. componente gönderilen geçirilen değerlere karşılık gelir.
 
 function Header({ bg, variant, menus, homePageUrl }) {
+	const userName = localStorage.getItem('username');
+
+	console.log('userName', userName);
+
 	return (
 		<>
 			<Navbar bg={bg} variant={variant}>
@@ -30,6 +34,7 @@ function Header({ bg, variant, menus, homePageUrl }) {
 								</Link>
 							);
 						})}
+						<Nav.Item>{userName}</Nav.Item>
 					</Nav>
 				</Container>
 			</Navbar>
