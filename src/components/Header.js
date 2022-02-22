@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
+import { useSelector } from 'react-redux';
 
 // bgColor component içerine dışarıdan gönderilen değerlere props ismini veririz.
 // props html elementin attribute karşılık gelir. <a href="wwww.a.com"></a>
@@ -13,6 +14,12 @@ function Header({ bg, variant, menus, homePageUrl }) {
 	const userName = AuthService.UserName();
 	const isAuthenticated = AuthService.isAuthenticated();
 	const navigate = useNavigate();
+
+	const cart = useSelector((store) => store.cartState.cartItems);
+	const cartTotal = useSelector((store) => store.cartState.total);
+
+	console.log('cart', cart);
+	console.log('cartTotal', cartTotal);
 
 	const logout = async () => {
 		AuthService.logout((response) => {
@@ -45,6 +52,10 @@ function Header({ bg, variant, menus, homePageUrl }) {
 					</Nav>
 					{isAuthenticated && (
 						<div className="ms-auto">
+							<Nav style={{ color: 'indianred', justifyContent: 'center' }}>
+								Sepet Toplam :{cartTotal}
+							</Nav>
+
 							<Nav style={{ color: 'indianred', justifyContent: 'center' }}>
 								{userName}
 							</Nav>

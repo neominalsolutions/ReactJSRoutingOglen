@@ -15,47 +15,52 @@ import Register from './pages/Register';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import UnAuthorized from './pages/UnAuthorized';
+import { Provider } from 'react-redux';
+import { mystore } from './store/mystore';
+import Product from './pages/Product';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Routes>
-				<Route path="login" element={<Login />} />
-				<Route path="register" element={<Register />} />
-				<Route path="unauthorized" element={<UnAuthorized />} />
-				<Route
-					path="admin"
-					element={
-						<AuthGuard>
-							<Admin />
-						</AuthGuard>
-					}
-				>
-					<Route path="" element={<Dashboard />} />
+		<Provider store={mystore}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="login" element={<Login />} />
+					<Route path="register" element={<Register />} />
+					<Route path="unauthorized" element={<UnAuthorized />} />
 					<Route
-						path="users"
-						element={
-							<RoleGuard roles={['admin']}>
-								<Users />
-							</RoleGuard>
-						}
-					/>
-					<Route path="users/:id" element={<UserDetail />} />
-				</Route>
-				<Route path="" element={<App />}>
-					<Route path="" element={<Home />} />
-					<Route path="home" element={<Home />} />
-					<Route
-						path="about"
+						path="admin"
 						element={
 							<AuthGuard>
-								<About />
+								<Admin />
 							</AuthGuard>
 						}
-					/>
-				</Route>
-			</Routes>
-		</BrowserRouter>
+					>
+						<Route path="" element={<Dashboard />} />
+						<Route
+							path="users"
+							element={
+								<RoleGuard roles={['admin']}>
+									<Users />
+								</RoleGuard>
+							}
+						/>
+						<Route path="users/:id" element={<UserDetail />} />
+					</Route>
+					<Route path="" element={<App />}>
+						<Route path="" element={<Product />} />
+						<Route path="home" element={<Product />} />
+						<Route
+							path="about"
+							element={
+								<AuthGuard>
+									<About />
+								</AuthGuard>
+							}
+						/>
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
