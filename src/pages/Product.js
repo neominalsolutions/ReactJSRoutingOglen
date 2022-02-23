@@ -1,6 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, Container, CardGroup, Row, Col } from 'react-bootstrap';
+import {
+	Card,
+	Button,
+	Container,
+	CardGroup,
+	Row,
+	Col,
+	Badge,
+} from 'react-bootstrap';
 import { addToCart } from '../store/actions/cart.actions';
 
 function Product() {
@@ -42,6 +50,7 @@ function Product() {
 							</Card.Title>
 							<Card.Text>
 								{item.Name}
+								{/* <Badge>2</Badge> */}
 								<div className="text-danger">{item.Price} TL</div>
 							</Card.Text>
 							<Button onClick={() => onAddToCard(item)} variant="primary">

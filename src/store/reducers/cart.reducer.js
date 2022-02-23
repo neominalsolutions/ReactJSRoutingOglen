@@ -20,6 +20,22 @@ export const cartReducer = (state = cartInitialState, action) => {
 				cartItems: [...cart.cartItems],
 				total: cart.total,
 			};
+		case 'clearCart':
+			CartService.clearCart(); // localstorage temizleme
+
+			return {
+				...state,
+				total: 0,
+				cartItems: action.payload,
+			};
+		case 'removeFromCart':
+			const _cart = CartService.remove(action.payload.id);
+
+			return {
+				...state,
+				total: _cart.total,
+				cartItems: _cart.cartItems,
+			};
 		default:
 			return state;
 	}

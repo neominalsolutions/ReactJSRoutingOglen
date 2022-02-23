@@ -4,8 +4,12 @@ export const addToCart = (cartItem) => {
 	return { type: 'addToCart', payload: cartItem };
 };
 
-export const removeFromCart = (cartItem) => {
-	return { type: 'removeFromCart', payload: cartItem };
+export const clearCart = () => {
+	return { type: 'clearCart', payload: [] };
+};
+
+export const removeFromCart = (id) => {
+	return { type: 'removeFromCart', payload: { id: id } };
 };
 
 export const increaseQuantity = (productId) => {
