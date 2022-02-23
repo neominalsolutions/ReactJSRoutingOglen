@@ -24,7 +24,7 @@ function AdminLayout({ children }) {
 				<main>{children}</main>
 			</Container>
 			<Footer>
-				<p>Created By NbuyDesign</p>
+				<div>Created By NbuyDesign</div>
 			</Footer>
 		</>
 	);

@@ -1,6 +1,5 @@
 import { BaseHttpService } from './base.httpservice';
 import { TokenService } from './token.service';
-import jwt_decode from 'jwt-decode';
 
 export const AuthService = {};
 
@@ -16,7 +15,7 @@ AuthService.IsInRole = (roleNames) => {
 
 	// sample roles ['admin','manager']
 	// accesstokendan role bilgisini çektik
-	var decodedToken = jwt_decode(accessToken);
+	var decodedToken = TokenService.DecodeAccessToken(accessToken);
 	// accessToken'dan decode edilen role
 	const userRoles = decodedToken.role.split(',');
 	console.log('userRoles', userRoles);

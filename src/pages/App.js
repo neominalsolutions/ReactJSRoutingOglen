@@ -1,5 +1,5 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Layout from '../components/Layout';
 import { Outlet } from 'react-router';
 import { useDispatch } from 'react-redux';

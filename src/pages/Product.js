@@ -32,6 +32,7 @@ function Product() {
 			{products.map((item, index) => {
 				return (
 					<Card
+						key={index}
 						style={{ width: '18rem', marginBottom: '2rem', marginLeft: '2rem' }}
 					>
 						<Card.Img height={'200'} variant="top" src="/images/bottle.jpg" />

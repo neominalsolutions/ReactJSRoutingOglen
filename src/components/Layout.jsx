@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import CartMenu from './CartMenu';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -8,6 +9,7 @@ import Header from './Header';
 function Layout({ children }) {
 	return (
 		<>
+			<CartMenu></CartMenu>
 			<Header bg={'light'} variant={'light'} />
 			<Container fluid>
 				<main>{children}</main>

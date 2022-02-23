@@ -1,8 +1,6 @@
-const cartInitialState = {
-	// todo ile etkileşime geçmeden önceki state ne.
-	total: 0,
-	cartItems: [],
-};
+import { CartService } from '../../services/cart.service';
+
+const cartInitialState = CartService.getCart();
 
 export const cartReducer = (state = cartInitialState, action) => {
 	console.log('cartReducerPayload', action.payload);
@@ -14,45 +12,15 @@ export const cartReducer = (state = cartInitialState, action) => {
 
 	switch (action.type) {
 		case 'addToCart':
-			const existingCartItem = state.cartItems.find(
-				(x) => x.productId == action.payload.productId
-			);
+			// logic cart service içerisine koyuldu
+			const cart = CartService.addToCart(action.payload);
 
-			console.log('existingCartItem', existingCartItem);
-
-			if (existingCartItem != undefined) {
-				existingCartItem.quantity += 1;
-
-				let _total = 0;
-
-				for (const item of state.cartItems) {
-					_total += Number(item.price) * Number(item.quantity);
-				}
-
-				return {
-					...state, // state üzerindeki sadece products propertysini güncelliyoruz.
-					cartItems: [...state.cartItems],
-					total: _total,
-				};
-			} else {
-				let cartItems = [action.payload, ...state.cartItems];
-
-				let _total = 0;
-
-				for (const item of cartItems) {
-					_total += Number(item.price) * Number(item.quantity);
-				}
-
-				return {
-					...state, // state üzerindeki sadece products propertysini güncelliyoruz.
-					cartItems: [...cartItems],
-					total: _total,
-				};
-			}
-
+			return {
+				...state, // state üzerindeki sadece products propertysini güncelliyoruz.
+				cartItems: [...cart.cartItems],
+				total: cart.total,
+			};
 		default:
-			break;
+			return state;
 	}
-
-	return state;
 };

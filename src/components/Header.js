@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { Container, Nav, Navbar, Button } from 'react-bootstrap';
+import { Container, Nav, Navbar, Button, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggle } from '../store/actions/side.menu.action';
 
 // bgColor component içerine dışarıdan gönderilen değerlere props ismini veririz.
 // props html elementin attribute karşılık gelir. <a href="wwww.a.com"></a>
@@ -17,6 +18,8 @@ function Header({ bg, variant, menus, homePageUrl }) {
 
 	const cart = useSelector((store) => store.cartState.cartItems);
 	const cartTotal = useSelector((store) => store.cartState.total);
+	const sideMenuState = useSelector((store) => store.sideMenuState);
+	const dispatch = useDispatch();
 
 	console.log('cart', cart);
 	console.log('cartTotal', cartTotal);
@@ -52,17 +55,34 @@ function Header({ bg, variant, menus, homePageUrl }) {
 					</Nav>
 					{isAuthenticated && (
 						<div className="ms-auto">
-							<Nav style={{ color: 'indianred', justifyContent: 'center' }}>
-								Sepet Toplam :{cartTotal}
-							</Nav>
+							{/* <Nav.Link
+								onClick={() => {
+									dispatch(toggle(sideMenuState.visible));
+								}}
+								style={{ color: 'indianred', justifyContent: 'center' }}
+							>
+								Sepet Toplam :{cartTotal.toFixed(2)}
+							</Nav.Link> */}
 
-							<Nav style={{ color: 'indianred', justifyContent: 'center' }}>
-								{userName}
-							</Nav>
 							<Nav style={{ color: 'indianred' }}>
-								<Button variant="link" onClick={logout}>
-									Oturumu Kapat
-								</Button>
+								<Navbar.Collapse>
+									<Nav>
+										<NavDropdown title={userName} menuVariant="light">
+											<NavDropdown.Item onClick={logout}>
+												Oturumu Kapat
+											</NavDropdown.Item>
+										</NavDropdown>
+									</Nav>
+								</Navbar.Collapse>
+
+								<Nav.Link
+									onClick={() => {
+										dispatch(toggle(sideMenuState.visible));
+									}}
+									style={{ color: 'indianred', justifyContent: 'center' }}
+								>
+									<i class="bi bi-cart"></i> {cartTotal.toFixed(2)}
+								</Nav.Link>
 							</Nav>
 						</div>
 					)}
