@@ -11,7 +11,7 @@ import { toggle } from '../store/actions/side.menu.action';
 
 // { bg, variant } props denk gelir. props da özel bir keyword. componente gönderilen geçirilen değerlere karşılık gelir.
 
-function Header({ bg, variant, menus, homePageUrl }) {
+function Header({ bg, variant, menus, homePageUrl, isAdmin = false }) {
 	const userName = AuthService.UserName();
 	const isAuthenticated = AuthService.isAuthenticated();
 	const navigate = useNavigate();
@@ -75,14 +75,16 @@ function Header({ bg, variant, menus, homePageUrl }) {
 									</Nav>
 								</Navbar.Collapse>
 
-								<Nav.Link
-									onClick={() => {
-										dispatch(toggle(sideMenuState.visible));
-									}}
-									style={{ color: 'indianred', justifyContent: 'center' }}
-								>
-									<i class="bi bi-cart"></i> {cartTotal.toFixed(2)}
-								</Nav.Link>
+								{!isAdmin && (
+									<Nav.Link
+										onClick={() => {
+											dispatch(toggle(sideMenuState.visible));
+										}}
+										style={{ color: 'indianred', justifyContent: 'center' }}
+									>
+										<i class="bi bi-cart"></i> {cartTotal.toFixed(2)}
+									</Nav.Link>
+								)}
 							</Nav>
 						</div>
 					)}

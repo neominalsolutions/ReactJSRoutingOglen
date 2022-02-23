@@ -19,7 +19,7 @@ function AdminLayout({ children }) {
 
 	return (
 		<>
-			<Header bg="dark" variant="dark" menus={menus} />
+			<Header bg="dark" variant="dark" menus={menus} isAdmin={true} />
 			<Container>
 				<main>{children}</main>
 			</Container>
