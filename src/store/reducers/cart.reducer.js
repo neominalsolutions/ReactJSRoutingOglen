@@ -1,5 +1,8 @@
 import { CartService } from '../../services/cart.service';
 
+// var obj = {... obj, title:'denem'}
+// obj.title = 'denem';
+
 const cartInitialState = CartService.getCart();
 
 export const cartReducer = (state = cartInitialState, action) => {
@@ -26,7 +29,7 @@ export const cartReducer = (state = cartInitialState, action) => {
 			return {
 				...state,
 				total: 0,
-				cartItems: action.payload,
+				cartItems: [],
 			};
 		case 'removeFromCart':
 			const _cart = CartService.remove(action.payload.id);
